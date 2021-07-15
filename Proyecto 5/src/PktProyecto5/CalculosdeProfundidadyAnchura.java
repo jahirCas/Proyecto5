@@ -1,9 +1,9 @@
 package PktProyecto5;
 import java.util.ArrayList;
-public class ClsCalculos {
+public class CalculosdeProfundidadyAnchura {
 
     public int[][] g = 
-    	{{0, 1, 0, 1, 0},
+    			{{0, 1, 0, 1, 0},
                 {1, 0, 1, 0, 0},
                 {0, 1, 0, 1, 0},
                 {1, 0, 1, 0, 1},
@@ -11,7 +11,7 @@ public class ClsCalculos {
     private boolean[] visitiadoAnchura = new boolean[5];
     private boolean[] visitiadoProfunidad = new boolean[5];
 
-    public ClsCalculos() {
+    public CalculosdeProfundidadyAnchura() {
     }
 
     public int[][] getG() {
@@ -19,30 +19,22 @@ public class ClsCalculos {
     }
 
 public ArrayList<Integer> recorridoAnchura(int nodoI) {
-//Lista donde guardo los nodos recorridos
         ArrayList<Integer> recorridos = new ArrayList<Integer>();
-//El nodo inicial ya está visitado
         visitiadoAnchura[nodoI] = true;
-//Cola de visitas de los nodos adyacentes
         ArrayList<Integer> cola = new ArrayList<Integer>();
-//Se lista el nodo como ya recorrido
         recorridos.add(nodoI);
-//Se agrega el nodo a la cola de visitas
         cola.add(nodoI);
-//Hasta que visite todos los nodos
         while (!cola.isEmpty()) {
-            int j = cola.remove(0); //Se saca el primero nodo de la cola
-//Se busca en la matriz que representa el grafo los nodos adyacentes
+            int j = cola.remove(0); 
             for (int i = 0; i < g.length; i++) {
-//Si es un nodo adyacente y no está visitado entonces
                 if (g[j][i] == 1 && !visitiadoAnchura[i]) {
-                    cola.add(i);//Se agrega a la cola de visitas
-                    recorridos.add(i);//Se marca como recorrido
-                    visitiadoAnchura[i] = true;//Se marca como visitado
+                    cola.add(i);
+                    recorridos.add(i);
+                    visitiadoAnchura[i] = true;
                 }
             }
         }
-        return recorridos;//Devuelvo el recorrido del grafo en anchura
+        return recorridos;
     }
 
     public ArrayList<Integer> recorridoProfunidad(int nodoI) {

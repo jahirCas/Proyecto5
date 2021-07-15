@@ -1,41 +1,57 @@
 package PktProyecto5;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.JOptionPane;
+import java.awt.Font;
+import java.awt.Color;
 public class ClsPrincipal {
     public static void main(String[] args) {
-    	ClsCalculos g=new ClsCalculos();
-        ArrayList<Integer> enAnchura=g.recorridoAnchura(0);//Nodo inicial 0
-        
-        System.out.println("Recorrido en anchura a partir de la matriz: ");
-        for(int i=0;i<enAnchura.size();i++){
-            System.out.print(""+enAnchura.get(i)+"\n");
-        }
-        ArrayList<Integer> enProfundidad=g.recorridoProfunidad(0);//Nodo inicial 0
-        System.out.println("");
-        System.out.println("Recorrido en profundidad a partir de la matriz: ");
-        for(int i=0;i<enProfundidad.size();i++){
-            System.out.print(""+enProfundidad.get(i)+"\n");
-        }
-    
-    
         Arbol arbol = new Arbol();
         int valor;
-        String Dato;
-        
-        System.out.println("Insertando los siguientes valores: ");
-        
-        Dato = JOptionPane.showInputDialog("Inserta el numero de nodos que desea ingresar");
-        int n = Integer.parseInt(Dato);
-        
+        int Dato;
+        int cont=0;
+        Dato = 5;
+        int n = Dato;
+        //Personalizacion de la ventana
+    	UIManager UI=new UIManager();
+    	UI.put("OptionPane.background",new Color (152, 203, 220 ));UI.put("Panel.background", new Color(106, 194, 222));
+    	//Inicio
+    	CalculosdeProfundidadyAnchura g=new CalculosdeProfundidadyAnchura();
+        ArrayList<Integer> enAnchura=g.recorridoAnchura(0);//Nodo inicial 0
+        JTextArea areaTexto = new JTextArea("");
+      //Definir color del option pane
+        areaTexto.setBackground(new Color(106, 194, 222));
+		Font font = new Font("", Font.PLAIN, 13);
+		areaTexto.setFont(font);
+		areaTexto.setEditable(false);
+		 areaTexto.append("Busqueda en Profundidad y Anchura\n\n");
+        areaTexto.append("Recorrido en anchura a partir de la matriz:\n");
+        for(int i=0;i<enAnchura.size();i++){
+        	areaTexto.append(""+enAnchura.get(i)+"\n");
+        	
+        }
+        ArrayList<Integer> enProfundidad=g.recorridoProfunidad(0);//Nodo inicial 0
+        areaTexto.append("");
+        areaTexto.append("Recorrido en profundidad a partir de la matriz:\n");
+        for(int i=0;i<enProfundidad.size();i++){
+        	areaTexto.append(""+enProfundidad.get(i)+"\n");
+        }
+        //Recorridos
+        areaTexto.append("Con los valores de la matriz de adyacencia, se tendran los siguientes recorridos:"
+        		+ "\nLos mismos se pueden ver en la consola: ");
         for(int i = 1; i <= n; i++ )
         {
-            Dato = JOptionPane.showInputDialog("Dame el " + i + " valor para colocar en el Arbol");
-            valor = Integer.parseInt(Dato);
-            System.out.print(valor + " ");
+            Dato = cont;
+            valor = Dato;
+          //  areaTexto.append(valor + " ");
             arbol.insertarNodo(valor);
+            cont=cont+1;
         }
-        
-        System.out.println("\n\nRecorrido Preorden");
+        System.out.println("Recorridos:");
+        System.out.println("\nRecorrido Preorden");
         arbol.recorridoPreorden();
         
         System.out.println("\n\nRecorrido Inorden");
@@ -43,5 +59,6 @@ public class ClsPrincipal {
         
         System.out.println("\n\nRecorrido Postorden");
         arbol.recorridoPosorden();
+        JOptionPane.showMessageDialog(null, areaTexto,"Busqueda y Recorrido",1);
     }
 }
